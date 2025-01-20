@@ -1,0 +1,12 @@
+# enviroment
+ipykernel
+debugpy
+
+# Langchain
+langchain
+langchain-community
+langchain-ollama
+
+# Langgraph
+langgraph
+langgraph-cli[inmem]>=0.1.55
