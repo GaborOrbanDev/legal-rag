@@ -25,7 +25,6 @@ generation_prompt: |
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. 
   If you don't know the answer, just say that you don't know, do not halucinate!
   REMEMBER: retrieved context may contain both useful and irrelevant information, only use the relevant parts to answer the question.
-  Question is asked to get answer based on the text.
   
   <Question>
   {question}
