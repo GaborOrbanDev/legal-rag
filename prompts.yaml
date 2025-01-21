@@ -67,19 +67,3 @@ halucination_detection_prompt: |
   </Retrieved Context>
 
   Grade the answer!
-
-
-answer_grader_prompt: |
-  Grade the answer whether it resolves the question or not.
-  You should say `True` if the answer is correct and resolves the question, and `False` otherwise.
-  If the answer was about saying it doesn't know, you should say `False` as well, becuase you are evaluating whether the model is answering the question or not.
-
-  <Question>
-  {question}
-  </Question>
-
-  <Answer>
-  {answer}
-  </Answer>
-
-  Grade the answer!
