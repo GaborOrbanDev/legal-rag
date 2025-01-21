@@ -1,4 +1,5 @@
-# %%
+"""The Self-RAG workflow is meant to be used with Langgraph CLI."""
+
 import yaml
 from typing import Literal
 from langchain_community.vectorstores import FAISS
@@ -7,19 +8,12 @@ from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplat
 from langchain_core.output_parsers import StrOutputParser
 from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langgraph.graph.state import CompiledStateGraph, StateGraph, START, END
-from pprint import pprint
 from pydantic import BaseModel, Field
 
-# %% [markdown]
-# Applied local language model
 
-# %%
 MODEL = "llama3.1:latest"
 
-# %% [markdown]
-# Loading database from disk
 
-# %%
 vectorstore = FAISS.load_local(
     folder_path="./database", 
     index_name="us_constitution_1000_100", 
@@ -27,22 +21,21 @@ vectorstore = FAISS.load_local(
     allow_dangerous_deserialization=True
 )
 
-# %% [markdown]
-# Creating state schema
 
-# %%
 class InputState(BaseModel):
     question: str
+
 
 class OutputState(BaseModel):
     documents: list[Document] = []
     generation: str = ""
 
+
 class SelfRAGState(InputState, OutputState):
     retrieve_count: int = 0
     generation_count: int = 0
 
-# %%
+
 class SelfRAG:
     """Self-RAG workflow for generating answers based on retrieved and self-checked documents."""
 
@@ -199,5 +192,4 @@ class SelfRAG:
     # --------------------------------------------------------------------------------------------------------
         
 
-# %%
 agent = SelfRAG(vectorstore).create_rag()
