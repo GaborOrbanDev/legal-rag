@@ -1,6 +1,6 @@
 {
     "graphs": {
-      "crag": "./src/main.py:agent"
+      "crag": "./src/self_rag_workflow.py:agent"
     },
     "dependencies": ["."]
 }
