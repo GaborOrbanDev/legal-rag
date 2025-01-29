@@ -42,7 +42,12 @@ def pdf_loader(file_paths: str | list[str]) -> list[Document]:
 
     for file_path in file_paths:
         loader = PyPDFLoader(file_path)
-        docs.extend(loader.load())
+        pages = loader.load()
+        content = ""
+        for page in pages:
+            content += page.page_content.replace("\uf062Back to top", "")
+        doc = Document(page_content=content, metadata={"source": pages[0].metadata["source"]})
+        docs.append(doc)
     return docs
 
 
@@ -57,10 +62,19 @@ def split_documents(documents: list[Document], chunk_size: int, overlap: int) ->
     Returns:
         list[Document]: list of the split documents
     """
+
+    separators = [
+        r"\n(?=Article [IVXLCDM]+\n)",
+        r"\n(?=.*?Amendment\n)",
+        r"\n(?=Section \d+\n)"
+    ]
     
     splitter = RecursiveCharacterTextSplitter(
+        separators=separators,
+        is_separator_regex=True,
         chunk_size=chunk_size, 
         chunk_overlap=overlap, 
         length_function=len
     )
+
     return splitter.split_documents(documents)
