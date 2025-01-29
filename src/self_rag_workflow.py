@@ -94,7 +94,7 @@ class SelfRAG:
     def retrieve(self, state: SelfRAGState) -> SelfRAGState:
         """Retrieves semantically similar documents from the database."""
 
-        documents = self.vectorstore.similarity_search(query=state.question, k=10)
+        documents = self.vectorstore.similarity_search(query=state.question, k=5)
         return {"documents": documents, "retrieve_count": state.retrieve_count + 1}
     
     def grade_and_filter(self, state: SelfRAGState) -> SelfRAGState:
