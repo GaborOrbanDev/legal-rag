@@ -12,12 +12,13 @@ from pydantic import BaseModel, Field
 
 
 MODEL = "llama3.1:latest"
+EMBEDDING_MODEL = "nomic-embed-text:latest"
 
 
 vectorstore = FAISS.load_local(
     folder_path="./database", 
-    index_name="us_constitution_1000_100", 
-    embeddings=OllamaEmbeddings(model=MODEL),
+    index_name="us_constitution_500_0_net_spec_sep", 
+    embeddings=OllamaEmbeddings(model=EMBEDDING_MODEL),
     allow_dangerous_deserialization=True
 )
 
@@ -123,7 +124,7 @@ class SelfRAG:
         for i, grade in enumerate(response):
             if grade.grade > 5:
                 filtered_documents.append(state.documents[i])
-
+                
         return {"documents": filtered_documents}
     
     def rewrite_question(self, state: SelfRAGState) -> SelfRAGState:
