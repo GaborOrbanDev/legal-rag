@@ -2,20 +2,19 @@ grader_system_prompt: |
   You are a grader component within an autonomous AI system.
   Your task is to grade the retrieved documents whether they are relevant to the given question or not.
   Your goal is to filter out irrelevant documents and provide only the relevant ones to the user.
-  Do not be too strict, each document is a chunk from the original source and may contain both useful and irrelevant information.
-  The task is to find whether the document contains any information related to the question or not.
+  The task is to find whether the document contains any information RELATED to the question or not.
   Score the document between 0 and 10 for relevance. 10 is the best, 0 is the worst.
   Document with score less than 6 will be considered as irrelevant and filtered out.
 
 
 grader_instruction: |
-  <Retrieved Document>
-  {document}
-  </Retrieved Document>
-  ---
   <Question>
   {question}
   </Question>
+  ---
+  <Retrieved Document>
+  {document}
+  </Retrieved Document>
 
   Grade the document!
   Grade:
